@@ -77,7 +77,7 @@ function cambiarDisponibilidad() {
   let libro = biblioteca.libros.find(l => l.titulo === tituloBuscar);
 
   if (!libro) {
-    console.log("libro no encontrado");
+    console.log("libro no encontrado, por favor degite otro libro");
   } else {
     libro.disponible = !libro.disponible;
     console.log("estado actualizado");
