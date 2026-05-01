@@ -157,3 +157,65 @@ function menu() {
 while (continuar) {
   menu();
 }
+
+
+// console.log(biblioteca.libros); // muestra el mismo array actualizado
+
+function buscarPorAutor() {
+  let autorBuscar = prompt("Ingrese el nombre del autor: ").toLowerCase();
+  
+  // Usamos filter y toLowerCase para que la búsqueda sea flexible
+  let librosAutor = biblioteca.libros.filter(libro => 
+    libro.autor.toLowerCase().includes(autorBuscar)
+  );
+
+  if (librosAutor.length === 0) {
+    console.log(`No se encontraron libros del autor: ${autorBuscar}`);
+  } else {
+    console.log(`\nLibros encontrados de "${autorBuscar}":`);
+    librosAutor.forEach(libro => {
+      console.log(`- ${libro.titulo} (${libro.año}) [${libro.disponible ? "Disponible" : "Prestado"}]`);
+    });
+  }
+}
+
+function generarReporte() {
+  let total = biblioteca.libros.length;
+  let disponibles = biblioteca.libros.filter(l => l.disponible).length;
+  let prestados = total - disponibles;
+
+  console.log("\n====== REPORTE DE BIBLIOTECA ======");
+  console.log(`Total de ejemplares: ${total}`);
+  console.log(`Libros en estantería: ${disponibles}`);
+  console.log(`Libros en préstamo: ${prestados}`);
+  console.log("===================================");
+}
+
+// --- ACTUALIZACIÓN DEL MENÚ ---
+// (Reemplaza tu función menu actual con esta para incluir las nuevas opciones)
+
+function menu() {
+  console.log("\n--- SISTEMA DE GESTIÓN BIBLIOTECARIA ---");
+  console.log("1. Mostrar todos los libros");
+  console.log("2. Agregar nuevo libro");
+  console.log("3. Filtrar por categoría");
+  console.log("4. Buscar por autor (NUEVO)");
+  console.log("5. Cambiar disponibilidad (Préstamo/Devolución)");
+  console.log("6. Borrar libro");
+  console.log("7. Reporte de inventario (NUEVO)");
+  console.log("8. Salir");
+
+  let opcion = prompt("Seleccione una opción: ");
+
+  switch (opcion) {
+    case "1": mostrarLibros(); break;
+    case "2": agregarLibro(); break;
+    case "3": filtrarPorCategoria(); break;
+    case "4": buscarPorAutor(); break;
+    case "5": cambiarDisponibilidad(); break;
+    case "6": borrarLibro(); break;
+    case "7": generarReporte(); break;
+    case "8": salir(); break;
+    default: console.log("Opción no válida, intente de nuevo.");
+  }
+}
